@@ -1,6 +1,8 @@
 package com.example.spendwise.model;
 
 import java.util.Map;
+import java.util.ArrayList;
+
 
 public class Budget {
     private long budgetId;
@@ -8,7 +10,8 @@ public class Budget {
     private long budgetOwnerCustomerId;
     private long budgetAllotted;
     private long budgetSpent;
-    private Map<Long, Transaction> transactionMap;
+    private ArrayList<Transaction> transactionList;
+
 
     public Budget(){
 
@@ -63,12 +66,11 @@ public class Budget {
         this.budgetSpent = budgetSpent;
     }
 
-    public Map<Long, Transaction> getTransactionMap() {
-        return transactionMap;
+    public ArrayList<Transaction> getTransactionList() {
+        return transactionList;
     }
 
-    public void setTransactionMap(Map<Long, Transaction> transactionMap) {
-        this.transactionMap = transactionMap;
+    public void setTransactionList(ArrayList<Transaction> transactionList) {
+        this.transactionList = transactionList;
     }
-
 }

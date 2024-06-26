@@ -1,12 +1,13 @@
 package com.example.spendwise.model;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class Customer {
     private long customerId;
     private String customerName;
-    private Map<Long, Budget> budgetMap;
+    private ArrayList<Budget> budgetList;
 
 
     public Customer() {
@@ -34,12 +35,12 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public Map<Long, Budget> getBudgetMap() {
-        return budgetMap;
+    public ArrayList<Budget> getBudgetList() {
+        return budgetList;
     }
 
-    public void setBudgetMap(Map<Long, Budget> budgetMap) {
-        this.budgetMap = budgetMap;
+    public void setBudgetList(ArrayList<Budget> budgetList) {
+        this.budgetList = budgetList;
     }
 }
 

@@ -5,6 +5,7 @@ import java.util.Map;
 public class Budget {
     private long budgetId;
     private String budgetName;
+    private long budgetOwnerCustomerId;
     private long budgetAllotted;
     private long budgetSpent;
     private Map<Long, Transaction> transactionMap;
@@ -13,12 +14,13 @@ public class Budget {
 
     }
 
-    public Budget(long budgetId, String budgetName, long budgetAllotted, long budgetSpent, Map<Long, Transaction> transactionMap) {
+    public Budget(long budgetId, String budgetName,long budgetOwnerCustomerId, long budgetAllotted, long budgetSpent) {
         this.budgetId = budgetId;
         this.budgetName = budgetName;
+        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
         this.budgetAllotted = budgetAllotted;
         this.budgetSpent = budgetSpent;
-        this.transactionMap = transactionMap;
+//        this.transactionMap = transactionMap;
     }
 
     public long getBudgetId() {
@@ -35,6 +37,14 @@ public class Budget {
 
     public void setBudgetName(String budgetName) {
         this.budgetName = budgetName;
+    }
+
+    public long getBudgetOwnerCustomerId() {
+        return budgetOwnerCustomerId;
+    }
+
+    public void setBudgetOwnerCustomerId(long budgetOwnerCustomerId) {
+        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
     }
 
     public long getBudgetAllotted() {

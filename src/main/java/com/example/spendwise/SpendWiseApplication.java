@@ -15,9 +15,9 @@ public class SpendWiseApplication {
 		SpringApplication.run(SpendWiseApplication.class, args);
 	}
 
-	@GetMapping("/hello")
+	@GetMapping("/")
 	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return String.format("Hello %s!", name);
+		return String.format("Hello %s! 404. This page shouldn't be visible", name);
 	}
 
 }

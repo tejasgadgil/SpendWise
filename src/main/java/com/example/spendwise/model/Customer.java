@@ -12,10 +12,10 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(long customerId, String customerName, Map<Long, Budget> budgetMap) {
+    public Customer(long customerId, String customerName) {
         this.customerId = customerId;
         this.customerName = customerName;
-        this.budgetMap = budgetMap;
+//        this.budgetMap = budgetMap;
     }
 
     public long getCustomerId() {

@@ -30,7 +30,7 @@ This project, developed during NEUEDA's training in collaboration with Citibank,
 1. Clone the repository:
 
     ```bash
-    git clone [https://github.com/your-username/spendwise.git](https://github.com/tejasgadgil/SpendWise.git)
+    git clone https://github.com/tejasgadgil/SpendWise.git
     cd spendwise
     ```
 

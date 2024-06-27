@@ -18,32 +18,51 @@ This project, developed during NEUEDA's training in collaboration with Citibank,
 - HTML, CSS (for frontend)
 - JavaScript
 
-## Endpoints
+## Getting Started
 
-### User Management
+### Prerequisites
 
-- **Register User**: `POST /api/register`
+- JDK 8 or higher
+- Maven
 
-- **Login User**: `POST /api/login`
+### Installation
 
-- **Get User**: `GET /api/user/{id}`
+1. Clone the repository:
 
-### Transactions
+    ```bash
+    git clone [https://github.com/your-username/spendwise.git](https://github.com/tejasgadgil/SpendWise.git)
+    cd spendwise
+    ```
 
-- **Add Transaction**: `POST /api/transactions`
+2. Build the project:
 
-- **Get Transactions**: `GET /api/transactions/{customerId}`
- 
-### Budget
+    ```bash
+    mvn clean install
+    ```
 
-- **Set Budget**: `POST /api/budget`
+3. Run the application:
 
-- **Get Budget Status**: `GET /api/budget/{customerId}`
+    ```bash
+    mvn spring-boot:run
+    ```
+
+The application will start on `http://localhost:8080`.
+
+## Usage
+
+1. Use Postman or any other API client to interact with the REST API.
+2. The API endpoints available are:
+
+- **Customer**:
+  - `POST /customers`: Add a new customer
+  - `GET /customers/{id}`: Get a customer by ID
+
+- **Budget**:
+  - `POST /budgets`: Add a new budget
+  - `GET /budgets/{id}`: Get a budget by ID
+
+- **Transaction**:
+  - `POST /transactions`: Add a new transaction
+  - `GET /transactions/{id}`: Get a transaction by ID
 
 
-## Running the Application
-
-To run the application, use the following command:
-
-```sh
-mvn spring-boot:run

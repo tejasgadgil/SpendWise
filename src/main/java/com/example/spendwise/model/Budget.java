@@ -25,7 +25,7 @@ public class Budget {
 //    private List<Transaction> transactionList = new ArrayList<>();
     private ArrayList<Transaction> transactionList;
 
-    public Budget() {}
+    //public Budget() {}
 
     public Budget(long budgetId, String budgetName, Customer budgetOwner, long budgetAllotted, long budgetSpent) {
         this.budgetId = budgetId;

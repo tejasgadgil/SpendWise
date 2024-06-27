@@ -1,0 +1,13 @@
+### Add a Transaction
+POST http://localhost:8080/api/addTransactions
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "transaction": {
+    "transId": 0, // this will be overwritten by the server
+    "type": "Grocery",
+    "amount": 2000,
+    "budgetCategoryId": 2
+  }
+}

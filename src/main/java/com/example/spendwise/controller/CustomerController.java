@@ -1,49 +1,55 @@
 package com.example.spendwise.controller;
 
-import com.example.spendwise.model.Budget;
 import com.example.spendwise.model.Customer;
-import com.example.spendwise.model.Transaction;
-import com.example.spendwise.service.CustomerService;
-import com.example.spendwise.service.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
-
+@RestController
+@RequestMapping("/api")
 public class CustomerController {
 
+    Customer cust1=new Customer(1,"ABC");
+    Customer cust2=new Customer(2,"ABCD");
+
+    private Map<Long, Customer> customerRepo = new HashMap<>();
+
+    public CustomerController(){
+        customerRepo.put(1L,cust1);
+        customerRepo.put(2L,cust2);
+    };
+    private long customerIdCounter = cust2.getCustomerId();
+
+    @PostMapping("/register")
+    public String registerUser(@RequestBody Customer customer) {
+
+        if(customerRepo.containsKey(customer.getCustomerId())){
+            return "User already exists...";
+        }
+
+        customer.setCustomerId(customerIdCounter+1);
+        customerRepo.put(customer.getCustomerId(), customer);
+        return "User registered successfully :)";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@RequestBody Customer customer) {
+        // LOGIC HERE
+        if(customerRepo.containsKey(customer.getCustomerId())){
+            return "User logged in successfully :)";
+        }
+        return "User does not exist :(";
+
+    }
+
+    @GetMapping("/{id}/user")
+    public Customer getUser(@PathVariable long id) {
+        return customerRepo.get(id);
+    }
+
+    @GetMapping("/userTest")
+    public String hey(@RequestParam(value = "name", defaultValue = "XYZ") String name) {
+        return String.format("Hey %s!", name);
+    }
 }
-
-
-
-//@RestController
-//@RequestMapping("/api/customers")
-//public class CustomerController {
-//
-//    @Autowired
-//    private CustomerService customerService;
-//
-//    @Autowired
-//    private TransactionService transactionService;
-//
-//    @PostMapping
-//    public Customer addCustomer(@RequestBody Customer customer) {
-//        return customerService.addCustomer(customer);
-//    }
-//
-//    @GetMapping("/{customerId}")
-//    public Optional<Customer> getCustomer(@PathVariable long customerId) {
-//        return customerService.getCustomerById(customerId);
-//    }
-//
-//    @PostMapping("/{customerId}/transactions")
-//    public void addTransaction(@PathVariable long customerId, @RequestBody Transaction transaction) {
-//        customerService.addTransaction(customerId, transaction);
-//    }
-//
-//    @PostMapping("/{customerId}/budgets")
-//    public void setBudget(@PathVariable long customerId, @RequestBody Budget budget) {
-//        customerService.setBudget(customerId, budget);
-//    }
-//}

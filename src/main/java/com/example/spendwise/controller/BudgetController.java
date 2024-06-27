@@ -44,7 +44,7 @@ public class BudgetController {
         return budget;
     }
 
-    @GetMapping("/budget/{customerId}")
+    @GetMapping("/{customerId}/budget")
     public List<Budget> getBudgetStatus(@PathVariable long customerId) {
         return budgetRepo.getOrDefault(customerId, new ArrayList<>());
     }

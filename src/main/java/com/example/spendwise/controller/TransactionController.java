@@ -3,7 +3,6 @@ package com.example.spendwise.controller;
 import com.example.spendwise.model.Budget;
 import com.example.spendwise.model.Customer;
 import com.example.spendwise.model.Transaction;
-import com.example.spendwise.model.TransactionRequest;
 import com.example.spendwise.controller.DummyData;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,12 +45,12 @@ public class TransactionController {
     }
 
     @PostMapping("/addTransactions")
-    public TransactionRequest addTransaction(@RequestBody TransactionRequest request) {
-        transactionsRepo.computeIfAbsent(request.getCustomerId(), k -> new ArrayList<>()).add(request.getTransaction());
-        return request;
+    public Transaction addTransaction(@RequestBody Transaction transaction) {
+        transactionsRepo.computeIfAbsent(transaction.getTransactionCustomer().getCustomerId(), k -> new ArrayList<>()).add(transaction);
+        return transaction;
     }
 
-    @GetMapping("/transactions/{customerId}")
+    @GetMapping("/{customerId}/transactions")
     public List<Transaction> getTransactions(@PathVariable long customerId) {
         return transactionsRepo.getOrDefault(customerId, new ArrayList<>());
     }

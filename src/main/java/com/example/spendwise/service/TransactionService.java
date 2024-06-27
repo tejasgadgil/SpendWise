@@ -16,12 +16,11 @@ public class TransactionService {
     private BudgetRepository budgetRepository;
 
     public Transaction addTransaction(Transaction transaction){
-        long budgetId = transaction.getTransBudgetCategoryId();
-        Budget budget = budgetRepository.findById(budgetId).orElseThrow(() ->  new RuntimeException("Budget category doesnt exist"));
+        long budgetId = transaction.getTransactionBudget().getBudgetId();
+        Budget budget = budgetRepository.findById(budgetId).orElseThrow(() -> new RuntimeException("Budget category doesn't exist"));
         budget.getTransactionList().add(transaction);
         budget.setBudgetSpent(budget.getBudgetSpent() + transaction.getTransAmt());
         budgetRepository.save(budget);
-        transactionRepository.save(transaction);
-        return transaction;
+        return transactionRepository.save(transaction);
     }
 }

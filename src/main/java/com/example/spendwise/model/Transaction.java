@@ -1,9 +1,6 @@
 package com.example.spendwise.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Transaction {
@@ -13,16 +10,23 @@ public class Transaction {
     private long transId;
     private String transName;
     private long transAmt;
-    private long transBudgetCategoryId;
 
-    public Transaction(){
-    }
+    @ManyToOne
+    @JoinColumn(name = "transBudgetCategoryId", referencedColumnName = "budgetId")
+    private Budget transactionBudget;
 
-    public Transaction(long transId, String transName,long transAmt,long transBudgetCategoryId ) {
+    @ManyToOne
+    @JoinColumn(name = "transCustomerId", referencedColumnName = "customerId")
+    private Customer transactionCustomer;
+
+    public Transaction() {}
+
+    public Transaction(long transId, String transName, long transAmt, Budget transactionBudget, Customer transactionCustomer) {
         this.transId = transId;
         this.transName = transName;
         this.transAmt = transAmt;
-        this.transBudgetCategoryId = transBudgetCategoryId;
+        this.transactionBudget = transactionBudget;
+        this.transactionCustomer = transactionCustomer;
     }
 
     public long getTransId() {
@@ -49,12 +53,19 @@ public class Transaction {
         this.transAmt = transAmt;
     }
 
-    public long getTransBudgetCategoryId() {
-        return transBudgetCategoryId;
+    public Budget getTransactionBudget() {
+        return transactionBudget;
     }
 
-    public void setTransBudgetCategoryId(long transBudgetCategoryId) {
-        this.transBudgetCategoryId = transBudgetCategoryId;
+    public void setTransactionBudget(Budget transactionBudget) {
+        this.transactionBudget = transactionBudget;
     }
 
+    public Customer getTransactionCustomer() {
+        return transactionCustomer;
+    }
+
+    public void setTransactionCustomer(Customer transactionCustomer) {
+        this.transactionCustomer = transactionCustomer;
+    }
 }

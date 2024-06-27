@@ -22,24 +22,26 @@ public class CustomerService {
         Optional<Customer> customerOptional = customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
+            budget.setBudgetOwner(customer);
             customer.getBudgetList().add(budget);
             customerRepository.save(customer);
         } else {
             throw new RuntimeException("Customer not found");
         }
     }
+
     public void addTransaction(long customerId, Transaction transaction) {
         Optional<Customer> customerOptional = customerRepository.findById(customerId);
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
-            for (Budget budget : customer.getBudgetList()) {
-                if (budget.getBudgetId() == transaction.getTransBudgetCategoryId()) {
-                    budget.getTransactionList().add(transaction);
-                    budget.setBudgetSpent(budget.getBudgetSpent() + transaction.getTransAmt());
-                    break;
-                }
+            Budget budget = transaction.getTransactionBudget();
+            if (customer.getBudgetList().contains(budget)) {
+                budget.getTransactionList().add(transaction);
+                budget.setBudgetSpent(budget.getBudgetSpent() + transaction.getTransAmt());
+                customerRepository.save(customer);
+            } else {
+                throw new RuntimeException("Budget not found for this customer");
             }
-            customerRepository.save(customer);
         } else {
             throw new RuntimeException("Customer not found");
         }
@@ -49,3 +51,4 @@ public class CustomerService {
         return customerRepository.findById(customerId);
     }
 }
+

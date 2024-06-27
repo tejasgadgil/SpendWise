@@ -4,10 +4,7 @@ import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Map;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Customer {
@@ -16,16 +13,15 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long customerId;
     private String customerName;
+
+    @OneToMany(mappedBy = "budgetOwner", cascade = CascadeType.ALL)
     private ArrayList<Budget> budgetList;
 
-
-    public Customer() {
-    }
+    public Customer() {}
 
     public Customer(long customerId, String customerName) {
         this.customerId = customerId;
         this.customerName = customerName;
-//        this.budgetMap = budgetMap;
     }
 
     public long getCustomerId() {

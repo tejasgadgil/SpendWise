@@ -1,12 +1,10 @@
 package com.example.spendwise.model;
 
+import java.lang.reflect.Array;
 import java.util.Map;
 import java.util.ArrayList;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Budget {
@@ -15,23 +13,26 @@ public class Budget {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long budgetId;
     private String budgetName;
-    private long budgetOwnerCustomerId;
+
+    @ManyToOne
+    @JoinColumn(name = "budgetOwnerCustomerId", referencedColumnName = "customerId")
+    private Customer budgetOwner;
+
     private long budgetAllotted;
     private long budgetSpent;
+
+    @OneToMany(mappedBy = "transactionBudget", cascade = CascadeType.ALL)
+//    private List<Transaction> transactionList = new ArrayList<>();
     private ArrayList<Transaction> transactionList;
 
+    public Budget() {}
 
-    public Budget(){
-
-    }
-
-    public Budget(long budgetId, String budgetName,long budgetOwnerCustomerId, long budgetAllotted, long budgetSpent) {
+    public Budget(long budgetId, String budgetName, Customer budgetOwner, long budgetAllotted, long budgetSpent) {
         this.budgetId = budgetId;
         this.budgetName = budgetName;
-        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
+        this.budgetOwner = budgetOwner;
         this.budgetAllotted = budgetAllotted;
         this.budgetSpent = budgetSpent;
-//        this.transactionMap = transactionMap;
     }
 
     public long getBudgetId() {
@@ -50,12 +51,12 @@ public class Budget {
         this.budgetName = budgetName;
     }
 
-    public long getBudgetOwnerCustomerId() {
-        return budgetOwnerCustomerId;
+    public Customer getBudgetOwner() {
+        return budgetOwner;
     }
 
-    public void setBudgetOwnerCustomerId(long budgetOwnerCustomerId) {
-        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
+    public void setBudgetOwner(Customer budgetOwner) {
+        this.budgetOwner = budgetOwner;
     }
 
     public long getBudgetAllotted() {

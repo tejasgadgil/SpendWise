@@ -15,8 +15,9 @@ public class Budget {
     private String budgetName;
 
     @ManyToOne
-    @JoinColumn(name = "budgetOwnerCustomerId", referencedColumnName = "customerId")
-    private Customer budgetOwner;
+//    @JoinColumn(name = "budgetOwnerCustomerId", referencedColumnName = "customerId")
+//    private Customer budgetOwner;
+    private long budgetOwnerCustomerId;
 
     private long budgetAllotted;
     private long budgetSpent;
@@ -27,13 +28,22 @@ public class Budget {
 
     //public Budget() {}
 
-    public Budget(long budgetId, String budgetName, Customer budgetOwner, long budgetAllotted, long budgetSpent) {
+//    public Budget(long budgetId, String budgetName, long budgetOwnerCustomerId, long budgetAllotted, long budgetSpent) {
+//        this.budgetId = budgetId;
+//        this.budgetName = budgetName;
+//        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
+//        this.budgetAllotted = budgetAllotted;
+//        this.budgetSpent = budgetSpent;
+//    }
+
+    public Budget(long budgetId, String budgetName, long budgetOwnerCustomerId, long budgetAllotted) {
         this.budgetId = budgetId;
         this.budgetName = budgetName;
-        this.budgetOwner = budgetOwner;
+        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
         this.budgetAllotted = budgetAllotted;
-        this.budgetSpent = budgetSpent;
+        this.budgetSpent = 0;
     }
+
 
     public long getBudgetId() {
         return budgetId;
@@ -51,13 +61,13 @@ public class Budget {
         this.budgetName = budgetName;
     }
 
-    public Customer getBudgetOwner() {
-        return budgetOwner;
-    }
-
-    public void setBudgetOwner(Customer budgetOwner) {
-        this.budgetOwner = budgetOwner;
-    }
+//    public Customer getBudgetOwner() {
+//        return budgetOwner;
+//    }
+//
+//    public void setBudgetOwner(Customer budgetOwner) {
+//        this.budgetOwner = budgetOwner;
+//    }
 
     public long getBudgetAllotted() {
         return budgetAllotted;
@@ -81,5 +91,14 @@ public class Budget {
 
     public void setTransactionList(ArrayList<Transaction> transactionList) {
         this.transactionList = transactionList;
+    }
+
+    public long getBudgetOwnerCustomerId() {
+
+        return budgetOwnerCustomerId;
+    }
+
+    public void setBudgetOwnerCustomerId(long budgetOwnerCustomerId) {
+        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
     }
 }

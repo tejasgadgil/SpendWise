@@ -11,22 +11,40 @@ public class Transaction {
     private String transName;
     private long transAmt;
 
-    @ManyToOne
-    @JoinColumn(name = "transBudgetCategoryId", referencedColumnName = "budgetId")
-    private Budget transactionBudget;
+    public long getTransactionBudgetId() {
+        return transactionBudgetId;
+    }
+
+    public void setTransactionBudgetId(long transactionBudgetId) {
+        this.transactionBudgetId = transactionBudgetId;
+    }
+
+    public long getTransactionCustomerId() {
+        return transactionCustomerId;
+    }
+
+    public void setTransactionCustomerId(long transactionCustomerId) {
+        this.transactionCustomerId = transactionCustomerId;
+    }
 
     @ManyToOne
-    @JoinColumn(name = "transCustomerId", referencedColumnName = "customerId")
-    private Customer transactionCustomer;
+//    @JoinColumn(name = "transBudgetCategoryId", referencedColumnName = "budgetId")
+//    private Budget transactionBudget;
+    private long transactionBudgetId;
+
+    @ManyToOne
+//    @JoinColumn(name = "transCustomerId", referencedColumnName = "customerId")
+//    private Customer transactionCustomer;
+    private long transactionCustomerId;
 
     public Transaction() {}
 
-    public Transaction(long transId, String transName, long transAmt, Budget transactionBudget, Customer transactionCustomer) {
+    public Transaction(long transId, String transName, long transAmt, long transactionBudgetId, long transactionCustomerId) {
         this.transId = transId;
         this.transName = transName;
         this.transAmt = transAmt;
-        this.transactionBudget = transactionBudget;
-        this.transactionCustomer = transactionCustomer;
+        this.transactionBudgetId = transactionBudgetId;
+        this.transactionCustomerId = transactionCustomerId;
     }
 
     public long getTransId() {
@@ -53,19 +71,19 @@ public class Transaction {
         this.transAmt = transAmt;
     }
 
-    public Budget getTransactionBudget() {
-        return transactionBudget;
-    }
-
-    public void setTransactionBudget(Budget transactionBudget) {
-        this.transactionBudget = transactionBudget;
-    }
-
-    public Customer getTransactionCustomer() {
-        return transactionCustomer;
-    }
-
-    public void setTransactionCustomer(Customer transactionCustomer) {
-        this.transactionCustomer = transactionCustomer;
-    }
+//    public Budget getTransactionBudget() {
+//        return transactionBudget;
+//    }
+//
+//    public void setTransactionBudget(Budget transactionBudget) {
+//        this.transactionBudget = transactionBudget;
+//    }
+//
+//    public Customer getTransactionCustomer() {
+//        return transactionCustomer;
+//    }
+//
+//    public void setTransactionCustomer(Customer transactionCustomer) {
+//        this.transactionCustomer = transactionCustomer;
+//    }
 }

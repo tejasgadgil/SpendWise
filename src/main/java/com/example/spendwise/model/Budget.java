@@ -3,8 +3,16 @@ package com.example.spendwise.model;
 import java.util.Map;
 import java.util.ArrayList;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Budget {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long budgetId;
     private String budgetName;
     private long budgetOwnerCustomerId;

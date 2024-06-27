@@ -1,10 +1,19 @@
 package com.example.spendwise.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
+//import java.util.Arrays;
+//import java.util.Map;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Customer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long customerId;
     private String customerName;
     private ArrayList<Budget> budgetList;

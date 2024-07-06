@@ -17,4 +17,25 @@ public class BudgetService {
     private BudgetRepository budgetRepository;
 
 
+    public List<Budget> getAllBudgets() {
+        return budgetRepository.findAll();
+    }
+
+
+    public Budget addBudget(Budget budget) {
+        return budgetRepository.save(budget);
+    }
+
+    public void deleteBudget(long budgetId) {
+        budgetRepository.deleteById(budgetId);
+    }
+
+    public Optional<Budget> getBudget(long budgetId) {
+        return budgetRepository.findById(budgetId);
+    }
+
+    public Optional<List<Budget>> getBudgetsByCustomerId(Long customerId) {
+        return budgetRepository.findByBudgetOwnerCustomerId(customerId);
+    }
+
 }

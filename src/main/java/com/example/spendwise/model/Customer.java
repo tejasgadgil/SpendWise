@@ -13,8 +13,8 @@ public class Customer {
     private long customerId;
     private String customerName;
 
-    @OneToMany(mappedBy = "budgetOwner", cascade = CascadeType.ALL)
-    private List<Budget> budgetList = new ArrayList<>();
+//    @OneToMany(mappedBy = "budgetOwner", cascade = CascadeType.ALL)
+//    private List<Budget> budgetList = new ArrayList<>();
 
     public Customer() {}
 
@@ -38,12 +38,12 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public List<Budget> getBudgetList() {
-        return budgetList;
-    }
-
-    public void addBudget(Budget budget) {
-        this.budgetList.add(budget);
-        budget.setBudgetOwner(this);
-    }
+//    public List<Budget> getBudgetList() {
+//        return budgetList;
+//    }
+//
+//    public void addBudget(Budget budget) {
+//        this.budgetList.add(budget);
+//        budget.setBudgetOwner(this);
+//    }
 }

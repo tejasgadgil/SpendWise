@@ -19,8 +19,8 @@ public class Budget {
     private long budgetAllotted;
     private long budgetSpent;
 
-    @OneToMany(mappedBy = "transactionBudget", cascade = CascadeType.ALL)
-    private List<Transaction> transactionList = new ArrayList<>();
+//    @OneToMany(mappedBy = "transactionBudget", cascade = CascadeType.ALL)
+//    private List<Transaction> transactionList = new ArrayList<>();
 
     public Budget() {}
 
@@ -71,12 +71,12 @@ public class Budget {
         this.budgetSpent = budgetSpent;
     }
 
-    public List<Transaction> getTransactionList() {
-        return transactionList;
-    }
-
-    public void addTransaction(Transaction transaction) {
-        this.transactionList.add(transaction);
-        transaction.setTransactionBudget(this);
-    }
+//    public List<Transaction> getTransactionList() {
+//        return transactionList;
+//    }
+//
+//    public void addTransaction(Transaction transaction) {
+//        this.transactionList.add(transaction);
+//        transaction.setTransactionBudget(this);
+//    }
 }

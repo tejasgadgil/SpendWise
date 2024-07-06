@@ -1,8 +1,7 @@
 package com.example.spendwise.model;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.Map;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -15,12 +14,11 @@ public class Customer {
     private String customerName;
 
     @OneToMany(mappedBy = "budgetOwner", cascade = CascadeType.ALL)
-    private ArrayList<Budget> budgetList;
+    private List<Budget> budgetList = new ArrayList<>();
 
     public Customer() {}
 
-    public Customer(long customerId, String customerName) {
-        this.customerId = customerId;
+    public Customer(String customerName) {
         this.customerName = customerName;
     }
 
@@ -40,13 +38,12 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public ArrayList<Budget> getBudgetList() {
+    public List<Budget> getBudgetList() {
         return budgetList;
     }
 
-    public void setBudgetList(ArrayList<Budget> budgetList) {
-        this.budgetList = budgetList;
+    public void addBudget(Budget budget) {
+        this.budgetList.add(budget);
+        budget.setBudgetOwner(this);
     }
 }
-
-

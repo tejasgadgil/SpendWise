@@ -1,9 +1,7 @@
 package com.example.spendwise.model;
 
-import java.lang.reflect.Array;
-import java.util.Map;
 import java.util.ArrayList;
-
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,35 +13,23 @@ public class Budget {
     private String budgetName;
 
     @ManyToOne
-//    @JoinColumn(name = "budgetOwnerCustomerId", referencedColumnName = "customerId")
-//    private Customer budgetOwner;
-    private long budgetOwnerCustomerId;
+    @JoinColumn(name = "budgetOwnerCustomerId", referencedColumnName = "customerId")
+    private Customer budgetOwner;
 
     private long budgetAllotted;
     private long budgetSpent;
 
     @OneToMany(mappedBy = "transactionBudget", cascade = CascadeType.ALL)
-//    private List<Transaction> transactionList = new ArrayList<>();
-    private ArrayList<Transaction> transactionList;
+    private List<Transaction> transactionList = new ArrayList<>();
 
-    //public Budget() {}
+    public Budget() {}
 
-//    public Budget(long budgetId, String budgetName, long budgetOwnerCustomerId, long budgetAllotted, long budgetSpent) {
-//        this.budgetId = budgetId;
-//        this.budgetName = budgetName;
-//        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
-//        this.budgetAllotted = budgetAllotted;
-//        this.budgetSpent = budgetSpent;
-//    }
-
-    public Budget(long budgetId, String budgetName, long budgetOwnerCustomerId, long budgetAllotted) {
-        this.budgetId = budgetId;
+    public Budget(String budgetName, Customer budgetOwner, long budgetAllotted) {
         this.budgetName = budgetName;
-        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
+        this.budgetOwner = budgetOwner;
         this.budgetAllotted = budgetAllotted;
         this.budgetSpent = 0;
     }
-
 
     public long getBudgetId() {
         return budgetId;
@@ -61,13 +47,13 @@ public class Budget {
         this.budgetName = budgetName;
     }
 
-//    public Customer getBudgetOwner() {
-//        return budgetOwner;
-//    }
-//
-//    public void setBudgetOwner(Customer budgetOwner) {
-//        this.budgetOwner = budgetOwner;
-//    }
+    public Customer getBudgetOwner() {
+        return budgetOwner;
+    }
+
+    public void setBudgetOwner(Customer budgetOwner) {
+        this.budgetOwner = budgetOwner;
+    }
 
     public long getBudgetAllotted() {
         return budgetAllotted;
@@ -85,20 +71,12 @@ public class Budget {
         this.budgetSpent = budgetSpent;
     }
 
-    public ArrayList<Transaction> getTransactionList() {
+    public List<Transaction> getTransactionList() {
         return transactionList;
     }
 
-    public void setTransactionList(ArrayList<Transaction> transactionList) {
-        this.transactionList = transactionList;
-    }
-
-    public long getBudgetOwnerCustomerId() {
-
-        return budgetOwnerCustomerId;
-    }
-
-    public void setBudgetOwnerCustomerId(long budgetOwnerCustomerId) {
-        this.budgetOwnerCustomerId = budgetOwnerCustomerId;
+    public void addTransaction(Transaction transaction) {
+        this.transactionList.add(transaction);
+        transaction.setTransactionBudget(this);
     }
 }

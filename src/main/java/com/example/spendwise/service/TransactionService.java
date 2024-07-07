@@ -24,7 +24,7 @@ public class TransactionService {
 
     public Transaction addTransaction(long customerId, Transaction transaction) {
         // Assuming transactionCustomer is set in the transaction object
-        return transactionRepository.save(transaction);
+        return transactionRepository.saveAndFlush(transaction);
     }
 
     public Optional<Transaction> updateTransaction(long customerId, long transId, Transaction transactionDetails) {
@@ -34,7 +34,7 @@ public class TransactionService {
             transaction.setTransName(transactionDetails.getTransName());
             transaction.setTransAmt(transactionDetails.getTransAmt());
             // Update other fields as needed
-            return Optional.of(transactionRepository.save(transaction));
+            return Optional.of(transactionRepository.saveAndFlush(transaction));
         } else {
             return Optional.empty();
         }

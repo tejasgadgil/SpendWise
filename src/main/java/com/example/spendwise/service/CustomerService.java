@@ -27,7 +27,7 @@ public class CustomerService {
     }
 
     public Customer addCustomer(Customer customer) {
-        return customerRepository.save(customer);
+        return customerRepository.saveAndFlush(customer);
     }
 
     public void deleteCustomer(long customerId) {

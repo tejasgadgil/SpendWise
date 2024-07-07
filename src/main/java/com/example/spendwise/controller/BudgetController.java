@@ -13,27 +13,27 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/{customerId}/budgets")
 public class BudgetController {
 
     @Autowired
     private BudgetService budgetService;
 
-    @GetMapping("/{customerId}/budgets")
+    @GetMapping
     public ResponseEntity<Optional<List<Budget>>> getBudgetList(@PathVariable long customerId){
         Optional<List<Budget>> budgetList = budgetService.getBudgetsByCustomerId(customerId);
         return new ResponseEntity<>(budgetList, HttpStatus.OK);
     }
 
-    @PostMapping("/{customerId}/budgets")
+    @PostMapping
     public ResponseEntity<Budget> addBudget(@PathVariable long customerId, @RequestBody Budget budget){
         Budget budgetToAdd = budgetService.addBudget(customerId, budget);
-        return new ResponseEntity<>(budgetToAdd, HttpStatus.OK);
+        return new ResponseEntity<>(budgetToAdd, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{customerId}/budgets/updateBudget")
-    public ResponseEntity<Budget> updateBudget(@PathVariable long customerId, @RequestBody Budget budget){
-        Budget updatedBudget = budgetService.updateBudget(budget.getBudgetId(),budget);
+    @PutMapping("/{budgetId}")
+    public ResponseEntity<Budget> updateBudget(@PathVariable long customerId, @PathVariable long budgetId, @RequestBody Budget budget){
+        Budget updatedBudget = budgetService.updateBudget(customerId,budgetId,budget);
         return new ResponseEntity<>(updatedBudget,HttpStatus.OK);
     }
 

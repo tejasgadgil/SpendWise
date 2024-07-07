@@ -1,7 +1,9 @@
 package com.example.spendwise.service;
 
 import com.example.spendwise.model.Budget;
+import com.example.spendwise.model.Customer;
 import com.example.spendwise.repository.BudgetRepository;
+import com.example.spendwise.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,9 @@ public class BudgetService {
     @Autowired
     private BudgetRepository budgetRepository;
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
 
     public List<Budget> getAllBudgets() {
         return budgetRepository.findAll();
@@ -23,7 +28,9 @@ public class BudgetService {
 
 
     public Budget addBudget(long customerId, Budget budget) {
-        return budgetRepository.save(budget);
+        Optional<Customer> customer= customerRepository.findById(customerId);
+        budget.setBudgetOwner(customer.get());
+        return budgetRepository.saveAndFlush(budget);
     }
 
     public void deleteBudget(long budgetId) {
@@ -38,17 +45,19 @@ public class BudgetService {
         return budgetRepository.findByBudgetOwnerCustomerId(customerId);
     }
 
-    public Budget updateBudget(long budgetId, Budget updatedBudget){
+    public Budget updateBudget(long customerId, long budgetId, Budget updatedBudget){
         Optional<Budget> oldBudget = budgetRepository.findById(budgetId);
         if(oldBudget.isPresent()){
             Budget existingBudget=oldBudget.get();
+            Optional<Customer> customer= customerRepository.findById(customerId);
+            existingBudget.setBudgetOwner(customer.get());
             existingBudget.setBudgetAllotted(updatedBudget.getBudgetAllotted());
             existingBudget.setBudgetName(updatedBudget.getBudgetName());
             updatedBudget=budgetRepository.saveAndFlush(existingBudget);
             return budgetRepository.findById(budgetId).get();
         }
         else {
-            throw new RuntimeException("Budget not found with id " + budgetId);
+            return null;
         }
     }
 

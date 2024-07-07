@@ -13,47 +13,28 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/budgets")
+@RequestMapping("/api")
 public class BudgetController {
 
     @Autowired
     private BudgetService budgetService;
 
-
-//    @GetMapping
-//    public ResponseEntity<List<Budget>> getAllBudgets(){
-//        List<Budget> budgetList = budgetService.getAllBudgets();
-//        return new ResponseEntity<>(budgetList, HttpStatus.OK);
-//    }
-
-//    @GetMapping("/{budgetId}")
-//    public ResponseEntity<Optional<Budget>> getBudget(@PathVariable long budgetId){
-//        Optional<Budget> budget = budgetService.getBudget(budgetId);
-//        return new ResponseEntity<>(budget, HttpStatus.OK);
-//    }
-
-//    @PostMapping
-//    public ResponseEntity<Budget> addBudget(@RequestBody Budget budget){
-//        Budget budgetToAdd = budgetService.addBudget(budget);
-//        return new ResponseEntity<>(budgetToAdd, HttpStatus.OK);
-//    }
-
-//    @DeleteMapping("/{budgetId}")
-//    public ResponseEntity<Void> deleteBudget(@PathVariable long budgetId){
-//        budgetService.deleteBudget(budgetId);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
-
-    @GetMapping("/listBudget/{customerId}")
+    @GetMapping("/{customerId}/budgets")
     public ResponseEntity<Optional<List<Budget>>> getBudgetList(@PathVariable long customerId){
         Optional<List<Budget>> budgetList = budgetService.getBudgetsByCustomerId(customerId);
         return new ResponseEntity<>(budgetList, HttpStatus.OK);
     }
 
-    @PostMapping("/addBudget")
-    public ResponseEntity<Budget> addBudget(@RequestBody Budget budget){
-        Budget budgetToAdd = budgetService.addBudget(budget);
+    @PostMapping("/{customerId}/budgets")
+    public ResponseEntity<Budget> addBudget(@PathVariable long customerId, @RequestBody Budget budget){
+        Budget budgetToAdd = budgetService.addBudget(customerId, budget);
         return new ResponseEntity<>(budgetToAdd, HttpStatus.OK);
+    }
+
+    @PutMapping("/{customerId}/budgets/updateBudget")
+    public ResponseEntity<Budget> updateBudget(@PathVariable long customerId, @RequestBody Budget budget){
+        Budget updatedBudget = budgetService.updateBudget(budget.getBudgetId(),budget);
+        return new ResponseEntity<>(updatedBudget,HttpStatus.OK);
     }
 
 }

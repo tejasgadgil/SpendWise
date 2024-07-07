@@ -22,7 +22,7 @@ public class BudgetService {
     }
 
 
-    public Budget addBudget(Budget budget) {
+    public Budget addBudget(long customerId, Budget budget) {
         return budgetRepository.save(budget);
     }
 
@@ -36,6 +36,20 @@ public class BudgetService {
 
     public Optional<List<Budget>> getBudgetsByCustomerId(Long customerId) {
         return budgetRepository.findByBudgetOwnerCustomerId(customerId);
+    }
+
+    public Budget updateBudget(long budgetId, Budget updatedBudget){
+        Optional<Budget> oldBudget = budgetRepository.findById(budgetId);
+        if(oldBudget.isPresent()){
+            Budget existingBudget=oldBudget.get();
+            existingBudget.setBudgetAllotted(updatedBudget.getBudgetAllotted());
+            existingBudget.setBudgetName(updatedBudget.getBudgetName());
+            updatedBudget=budgetRepository.saveAndFlush(existingBudget);
+            return budgetRepository.findById(budgetId).get();
+        }
+        else {
+            throw new RuntimeException("Budget not found with id " + budgetId);
+        }
     }
 
 }
